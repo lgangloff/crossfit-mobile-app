@@ -1,0 +1,8 @@
+{
+  "name": "crossfit-mobile-app",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
