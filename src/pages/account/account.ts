@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PrincipalServiceProvider } from '../../providers/principal-service/principal-service';
 
 @IonicPage()
 @Component({
@@ -11,8 +12,11 @@ export class AccountPage {
   account: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public principal: PrincipalServiceProvider) {
-    this.account.firstName = "Loïc";
-    this.account.lastName = "Gangloff";
+    this.principal.identity(false).subscribe(
+      res=>{
+        this.account = res;
+      }
+    )
   }
 
 }

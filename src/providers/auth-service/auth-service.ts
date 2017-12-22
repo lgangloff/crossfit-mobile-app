@@ -24,7 +24,7 @@ export class AuthServiceProvider {
     data.set("remember-me", "true");
     data.set("submit", "Login");
     
-    return this.http.post("api/authentication", data, {headers: new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")});
+    return this.http.post("api/authentication", data);
   }
 
   logout(){

@@ -13,7 +13,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { LoginPage } from '../pages/login/login';
 import { PrincipalServiceProvider } from '../providers/principal-service/principal-service';
 import { AccountServiceProvider } from '../providers/account-service/account-service';
-import { AccountPage } from '../pages/Account/account';
+import { AccountPage } from '../pages/account/account';
 import { CalendarPage } from '../pages/calendar/calendar';
 
 @NgModule({

@@ -8,7 +8,8 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://localhost:8383/api/"
+      "proxyUrl3": "http://localhost:8383/api/",
+      "proxyUrl": "http://booking.crossfit-nancy.fr/api/"
     }
   ]
 }

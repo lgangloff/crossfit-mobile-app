@@ -10,30 +10,82 @@
 
 <ion-content padding>
 
-    <div class="account-box">
+    <div class="account-box" *ngIf="account">
         <form (ngSubmit)="updateAccount()" #registerForm="ngForm">
-          <ion-row>
-            <ion-col>
-              <ion-list inset>
-                
-                <ion-item>
-                  <ion-input type="text" placeholder="Prénom" name="firstname" [(ngModel)]="account.firstName" required></ion-input>
-                </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>                    
+                  <ion-item>
+                    <ion-select name="title" [(ngModel)]="account.title" required>
+
+                      <ion-option value="MS" translate="crossfitApp.member.title.MS">Mme</ion-option>
+                      <ion-option value="MR" translate="crossfitApp.member.title.MR">Mr</ion-option>
+
+                    </ion-select>
+                  </ion-item>                    
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>                    
+                  <ion-item>
+                    <ion-input type="text" placeholder="Prénom" name="firstname" [(ngModel)]="account.firstName" required></ion-input>
+                  </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>                    
+                  <ion-item>
+                    <ion-input type="text" placeholder="Nom" name="lastname" [(ngModel)]="account.lastName" required></ion-input>
+                  </ion-item>                    
+              </ion-col>
+            </ion-row>        
+            
+            <ion-row>
+                <ion-col>                    
+                    <ion-item>
+                      <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="account.email" readonly disabled></ion-input>
+                    </ion-item>
+                </ion-col>
+              </ion-row>
+
+            <ion-row>
+              <ion-col>                    
+                  <ion-item>
+                    <ion-input type="text" placeholder="Rue" name="address" [(ngModel)]="account.address" required></ion-input>
+                  </ion-item>                    
+              </ion-col>
+            </ion-row>        
               
-                <ion-item>
-                  <ion-input type="text" placeholder="Prénom" name="lastname" [(ngModel)]="account.lastName" required></ion-input>
-                </ion-item>
-                
-              </ion-list>
-            </ion-col>
-          </ion-row>
-          
-          <ion-row>
-            <ion-col class="signup-col">
-              <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Mettre à jour</button>
-            </ion-col>
-          </ion-row>
-          
+            
+            <ion-row>
+                <ion-col col-4>                    
+                    <ion-item>
+                      <ion-input type="text" placeholder="Code Postal" name="zipCode" [(ngModel)]="account.zipCode" required></ion-input>
+                    </ion-item>                    
+                </ion-col>
+                <ion-col col-8>                    
+                    <ion-item>
+                      <ion-input type="text" placeholder="Ville" name="city" [(ngModel)]="account.city" required></ion-input>
+                    </ion-item>                    
+                </ion-col>
+              </ion-row>     
+
+              <ion-row>
+                <ion-col>                    
+                    <ion-item>
+                      <ion-input type="tel" placeholder="Rue" name="telephonNumber" [(ngModel)]="account.telephonNumber" required></ion-input>
+                    </ion-item>                    
+                </ion-col>
+              </ion-row>  
+
+            <ion-row>
+              <ion-col>
+                <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Mettre à jour</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </form>
       </div>
 

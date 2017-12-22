@@ -27,7 +27,9 @@ export class MyApp {
           if (!this.principal.isAuthenticated()){
             this.rootPage = LoginPage;
           }
-          this.rootPage = TabsPage;
+          else{
+            this.rootPage = TabsPage;
+          }
         }
       ); 
     });
