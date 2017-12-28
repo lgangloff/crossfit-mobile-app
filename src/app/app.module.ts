@@ -15,6 +15,7 @@ import { PrincipalServiceProvider } from '../providers/principal-service/princip
 import { AccountServiceProvider } from '../providers/account-service/account-service';
 import { AccountPage } from '../pages/account/account';
 import { CalendarPage } from '../pages/calendar/calendar';
+import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CalendarPage } from '../pages/calendar/calendar';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     PrincipalServiceProvider,
-    AccountServiceProvider
+    AccountServiceProvider,
+    BookingServiceProvider
   ]
 })
 export class AppModule {}

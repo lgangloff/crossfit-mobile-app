@@ -1,17 +1,26 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Mes réservations</ion-title>
   </ion-navbar>
+  <button (click)="disconnect()" >Disconnect</button>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content class="outer-content">
+  <h2 *ngIf="!bookings">Vous n'avez aucune réservation</h2>
+
+  <ion-list>
+      <ion-item-sliding *ngFor="let b of bookings">
+        <ion-item>
+          <h2>{{b.title}}</h2>
+          <ion-note>{{b.startAt | date: "EEE dd MMM 'à' HH:mm"}}</ion-note>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteBooking(b)">
+            <ion-icon name="close"></ion-icon>
+            Suppr.
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
 </ion-content>
