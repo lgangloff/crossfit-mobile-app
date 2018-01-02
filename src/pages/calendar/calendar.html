@@ -7,12 +7,21 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>calendar</ion-title>
+    <ion-title>{{currentDate | date:'fullDate'}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
+    <div class="cd-schedule">
+        <div class="timeline">
+          <ul>
+            <li *ngFor="let e of getIntervals()"><span>{{e.start | date:'HH:mm'}}</span></li>
+          </ul>
+        </div>
+
+    </div>
+  
 </ion-content>

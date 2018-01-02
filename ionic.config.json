@@ -10,6 +10,11 @@
       "path": "/api",
       "proxyUrl3": "http://localhost:8383/api/",
       "proxyUrl": "http://booking.crossfit-nancy.fr/api/"
+    },
+    {
+      "path": "/protected",
+      "proxyUrl3": "http://localhost:8383/protected/",
+      "proxyUrl": "http://booking.crossfit-nancy.fr/protected/"
     }
   ]
 }

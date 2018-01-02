@@ -2,6 +2,10 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -16,6 +20,9 @@ import { AccountServiceProvider } from '../providers/account-service/account-ser
 import { AccountPage } from '../pages/account/account';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
+import { PlanningServiceProvider } from '../providers/planning-service/planning-service';
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -51,7 +58,10 @@ import { BookingServiceProvider } from '../providers/booking-service/booking-ser
     AuthServiceProvider,
     PrincipalServiceProvider,
     AccountServiceProvider,
-    BookingServiceProvider
+    BookingServiceProvider,
+    PlanningServiceProvider,
+    { provide: LOCALE_ID, useValue: 'fr' }
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
