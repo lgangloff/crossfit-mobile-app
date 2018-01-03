@@ -21,15 +21,36 @@ import * as moment from 'moment';
 export class CalendarPage {
 
   currentDate = moment();
-  eventsources: EventSource[] = [];
+  start:moment.Moment;
+  end:moment.Moment;
+
+  allEventsOfTheDay: Event[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public planningService: PlanningServiceProvider) {
 
 
     this.planningService.getPlanning(null).subscribe(res=>{
-      this.eventsources = res;
 
-      console.log(this.eventsources);
+      let allEvents:Event[] =  [].concat.apply([], res.map(eventsource=>{
+        eventsource.events.forEach((event)=>{event.color = eventsource.color;});
+        return eventsource.events;
+      }));
+  
+      this.allEventsOfTheDay = allEvents
+      .filter(event=>{
+        return this.currentDate.isSame(event.start, 'day');
+      })
+      .sort((a:Event,b:Event)=>{
+        return a.start.getTime() - b.start.getTime();
+      });
+
+      
+      if (this.allEventsOfTheDay.length == 0){
+        this.allEventsOfTheDay = [];
+      }
+      
+      this.start = moment(this.allEventsOfTheDay[0].start);
+      this.end = moment(this.allEventsOfTheDay[this.allEventsOfTheDay.length-1].start);
     })
 
   }
@@ -40,21 +61,33 @@ export class CalendarPage {
     return event;
   }
 
-  getIntervals():Event[]{
-    let result:Event[] =  [].concat.apply([],this.eventsources.map(eventsource=>{
-      return eventsource.events;
-    }));
 
-    result = result
-    .filter(event=>{
-      return this.currentDate.isSame(event.start, 'day');
-    })
-    .sort((a:Event,b:Event)=>{
-      return a.start.getTime() - b.start.getTime();
-    });
-    console.log("getIntervale");
-    console.log(result);
+  getIntervalsOfTheDay():moment.Moment[]{
+
+    if (this.allEventsOfTheDay.length == 0){
+      return [];
+    }
+
+    let currentMoment = moment(this.start.clone());
+
+
+    let result:moment.Moment[] = [];
+    while(currentMoment.isBefore(this.end.clone())){
+      result.push(currentMoment.clone());
+      currentMoment.add(1, 'hour');
+    }
     return result;
+  }
+
+  eventStyle(event: Event){
+
+    let eventTop = moment(event.start).diff(this.start, 'minute');
+    let eventHeight = moment(event.end).diff(moment(event.start), 'minute');
+    return {
+      'top': `${eventTop}px`,
+      'height': `${eventHeight}px`,
+      'background-color' : `${event.color}`
+    };
   }
 
   ionViewDidLoad() {

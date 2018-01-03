@@ -1,7 +1,187 @@
+$row-height: 60px;
+$text-color: #222222;
+$border-color: #EAEAEA;
+$link-color: white;
+
 page-calendar {
 
 }
 
-.col{
+a {
+	color: $link-color;
+	text-decoration: none;
+}
+
+@mixin font-smoothing {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+
+@mixin clearfix {
+    &::after {
+      clear: both;
+      content: "";
+      display: block;
+    }
+}
+
+.cd-schedule .timeline {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        position: relative;
+        height: $row-height;
+
+        &::after {
+            /* this is used to create the table horizontal lines */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: $border-color;
+        }
+
+        &:last-of-type::after {
+            display: none;
+        }
+    }
+}
+
+
+
+.cd-schedule .events {
+	position: relative;
+	z-index: 1;
+    float: left;
+    width: 100%;
+
+    ul{
+        list-style: none;
+        margin: 0;
+    }
+
+
+	.events-group {
+        width: 100%;
+        float: left;
+        border: 1px solid $border-color;
+        /* reset style */
+        margin-bottom: 0;
+		margin-bottom: 30px;
+
+        &:not(:first-of-type) {
+            border-left-width: 0;
+        }
+	}
+
+	.top-info {
+		width: 100%;
+		padding: 0 5%;
+        /* vertically center its content */
+        display: table;
+        height: $row-height;
+        border-bottom: 1px solid $border-color;
+        /* reset style */
+        padding: 0;
+
+
+		> span {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 .5em;
+            text-align: center;
+			line-height: 1.2;
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        
+	}
+
+	.events-group > ul {
+		position: relative;
+		-webkit-overflow-scrolling: touch;
+
+        @include clearfix;
+        // 19 is the number of list items in the .timeline
+        height: $row-height*19;
+        /* reset style */
+        display: block;
+        overflow: visible;
+        padding: 0;
+
+
+		&::after {
+            /* reset style */
+            display: none;
+        }
+        
+        
+	}
+
+	.single-event {
+        transition: opacity .2s, background .2s;
+                
+        position: absolute;
+        z-index: 3;
+        /* top position and height will be set using js */
+        width: calc(100% + 2px);
+        left: -1px;
+        box-shadow: 0 10px 20px rgba(#000, .1), inset 0 -3px 0 rgba(#000, .2);
+        /* reset style */
+        flex-shrink: 1;
+        height: auto;
+        max-width: none;
+        margin-right: 0;
+
+		&:last-of-type {
+            margin-right: 0;
+		}
+
+        &.selected-event {
+            /* the .selected-event class is added when an user select the event */
+            visibility: hidden;
+        }
+		
+		a {
+			display: block;
+			height: 100%;
+            padding: 1.2em;
+		}
+    }
     
+
+}
+
+
+.cd-schedule .event-name,
+.cd-schedule .event-date {
+	display: block;
+	font-weight: bold;
+	@include font-smoothing;
+}
+
+.cd-schedule .event-name {
+    font-size: 2rem;
+}
+
+.cd-schedule .event-date {
+	/* they are not included in the the HTML but added using JavScript */
+	font-size: 1.4rem;
+	opacity: .7;
+	line-height: 1.2;
+	margin-bottom: .2em;
 }

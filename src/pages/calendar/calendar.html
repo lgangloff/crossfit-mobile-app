@@ -18,10 +18,28 @@
     <div class="cd-schedule">
         <div class="timeline">
           <ul>
-            <li *ngFor="let e of getIntervals()"><span>{{e.start | date:'HH:mm'}}</span></li>
+            <li *ngFor="let moment of getIntervalsOfTheDay()"><span>{{moment.toDate() | date:'HH:mm'}}</span></li>
           </ul>
         </div>
 
+        
+        <div class="events">
+          <ul>
+            <li class="events-group">      
+              <ul>
+                <li class="single-event"  *ngFor="let event of allEventsOfTheDay"  [ngStyle]="eventStyle(event)"
+                    attr.data-start="{{event.start | date:'HH:mm'}}" attr.data-end="{{event.end | date:'HH:mm'}}" 
+                    attr.data-content="{{event.title}}" attr.data-event="event-{{event.id}}">
+                    
+                  <a href="#{{event.id}}">
+                    <span class="event-date">{{event.start | date:'HH:mm'}} - {{event.end | date:'HH:mm'}}</span>
+                    <em class="event-name">{{event.title}}</em>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
     </div>
   
 </ion-content>
