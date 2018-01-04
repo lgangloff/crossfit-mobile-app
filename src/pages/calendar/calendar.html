@@ -7,7 +7,9 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{currentDate | date:'fullDate'}}</ion-title>
+    <button (click)="prev()" ><</button>
+    <ion-title>{{currentDate.toDate() | date:'fullDate'}}</ion-title>
+    <button (click)="next()" >></button>
   </ion-navbar>
 
 </ion-header>

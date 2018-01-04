@@ -13,7 +13,6 @@ import * as moment from 'moment';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-calendar',
   templateUrl: 'calendar.html',
@@ -28,8 +27,22 @@ export class CalendarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public planningService: PlanningServiceProvider) {
 
+    this.loadPlanning();
+  }
 
-    this.planningService.getPlanning(null).subscribe(res=>{
+  prev(){
+    this.currentDate.add(-1, 'day');
+    this.loadPlanning();
+  }
+
+  next(){
+    this.currentDate.add(1, 'day');
+    this.loadPlanning();
+  }
+
+  loadPlanning(){
+
+    this.planningService.getPlanning(this.currentDate.toDate()).subscribe(res=>{
 
       let allEvents:Event[] =  [].concat.apply([], res.map(eventsource=>{
         eventsource.events.forEach(event=>event.color = eventsource.color);
@@ -65,10 +78,8 @@ export class CalendarPage {
 
       this.start = moment.utc(this.allEventsOfTheDay[0].start);
       this.end = moment.utc(this.allEventsOfTheDay[this.allEventsOfTheDay.length-1].start);
-    })
-
+    });
   }
-
   getIntervalsOfTheDay():moment.Moment[]{
 
     if (this.allEventsOfTheDay.length == 0){

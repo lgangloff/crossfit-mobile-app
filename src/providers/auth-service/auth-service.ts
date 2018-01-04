@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ENV } from '@environment';
 
 @Injectable()
 export class AuthServiceProvider {
@@ -17,10 +18,10 @@ export class AuthServiceProvider {
     data.set("remember-me", "true");
     data.set("submit", "Login");
     
-    return this.http.post("api/authentication", data);
+    return this.http.post(ENV.API_ENDPOINT + "/api/authentication", data);
   }
 
   logout(){
-    return this.http.post("api/logout", {});
+    return this.http.post(ENV.API_ENDPOINT + "/api/logout", {});
   }
 }

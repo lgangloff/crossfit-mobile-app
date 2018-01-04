@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PrincipalServiceProvider } from '../../providers/principal-service/principal-service';
 
-@IonicPage()
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html',

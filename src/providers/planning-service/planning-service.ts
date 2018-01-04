@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EventSource } from '../../domain/eventsource';
 import { Event } from '../../domain/event';
 
+import { ENV } from '@environment';
 /*
   Generated class for the PlanningServiceProvider provider.
 
@@ -20,7 +21,7 @@ export class PlanningServiceProvider {
 
     let startAt:Date = start ? start : new Date();
 
-    return this.http.get<EventSource[]>("protected/planning",{
+    return this.http.get<EventSource[]>(ENV.API_ENDPOINT + "protected/planning",{
       params: {
         view: 'day',
         start: startAt.getFullYear() + "-" + (startAt.getUTCMonth()+1) + "-" + startAt.getDate()

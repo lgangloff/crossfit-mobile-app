@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ENV } from '@environment';
 
 /*
   Generated class for the AccountServiceProvider provider.
@@ -16,6 +17,6 @@ export class AccountServiceProvider {
 
 
   get(){
-    return this.http.get("api/account");
+    return this.http.get(ENV.API_ENDPOINT + "/api/account");
   }
 }

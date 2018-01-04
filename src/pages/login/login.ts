@@ -11,7 +11,6 @@ import { TabsPage } from '../tabs/tabs';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -39,7 +38,7 @@ export class LoginPage {
     this.authService.login(this.username, this.password).subscribe(
       succes=>{},
       error =>{
-        this.doAfterTryLogin();
+        this.doAfterTryLogin(error);
       },
       () => {
         this.doAfterTryLogin();
@@ -47,13 +46,13 @@ export class LoginPage {
     );
   }
 
-  doAfterTryLogin(){
+  doAfterTryLogin(error?){
     this.principal.identity(true).subscribe(res=>{
       if (this.principal.isAuthenticated()){
         this.navCtrl.setRoot(TabsPage);
       }
       else{
-        this.message = "Mauvais identifiant ou mot de passe";
+        this.message = "Mauvais identifiant ou mot de passe: " + JSON.stringify(error);
       }
     });
   }
