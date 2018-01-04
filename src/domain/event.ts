@@ -4,4 +4,6 @@ export class Event{
     start: Date;
     end: Date;
     color: string;
+
+    position: number;
 }

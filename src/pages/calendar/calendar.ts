@@ -32,7 +32,7 @@ export class CalendarPage {
     this.planningService.getPlanning(null).subscribe(res=>{
 
       let allEvents:Event[] =  [].concat.apply([], res.map(eventsource=>{
-        eventsource.events.forEach((event)=>{event.color = eventsource.color;});
+        eventsource.events.forEach(event=>event.color = eventsource.color);
         return eventsource.events;
       }));
   
@@ -41,26 +41,33 @@ export class CalendarPage {
         return this.currentDate.isSame(event.start, 'day');
       })
       .sort((a:Event,b:Event)=>{
-        return a.start.getTime() - b.start.getTime();
+        let res = a.start.getTime() - b.start.getTime();
+        return res == 0 ? a.title.localeCompare(b.title) : res;
       });
 
-      
       if (this.allEventsOfTheDay.length == 0){
         this.allEventsOfTheDay = [];
       }
       
-      this.start = moment(this.allEventsOfTheDay[0].start);
-      this.end = moment(this.allEventsOfTheDay[this.allEventsOfTheDay.length-1].start);
+
+      let that = this;
+      this.allEventsOfTheDay.forEach(function(item, index) {
+        if (index > 0) {
+          let prev = that.allEventsOfTheDay[index-1];
+          let cur = that.allEventsOfTheDay[index];
+
+          //Le début est sur la période du précédent ?
+          if (moment(cur.start).isSame(moment(prev.start)) || moment(cur.start).isBetween(moment(prev.start), moment(prev.end))){
+            cur.position = (prev.position ? prev.position : 1 ) + 1;
+          }
+        }
+      });
+
+      this.start = moment.utc(this.allEventsOfTheDay[0].start);
+      this.end = moment.utc(this.allEventsOfTheDay[this.allEventsOfTheDay.length-1].start);
     })
 
   }
-
-  findEventAt(eventsource:EventSource, startAt:Date){
-    let event = new Event();
-    event.title = "Yeah";
-    return event;
-  }
-
 
   getIntervalsOfTheDay():moment.Moment[]{
 
@@ -68,14 +75,17 @@ export class CalendarPage {
       return [];
     }
 
-    let currentMoment = moment(this.start.clone());
+    let currentMoment = moment.utc(this.start.clone());
 
 
     let result:moment.Moment[] = [];
-    while(currentMoment.isBefore(this.end.clone())){
+    while(currentMoment.isSameOrBefore(this.end.clone())){
       result.push(currentMoment.clone());
       currentMoment.add(1, 'hour');
     }
+
+    console.log("getIntervalsOfTheDay => " + result);
+
     return result;
   }
 
@@ -83,9 +93,13 @@ export class CalendarPage {
 
     let eventTop = moment(event.start).diff(this.start, 'minute');
     let eventHeight = moment(event.end).diff(moment(event.start), 'minute');
+    let width = 100 / event.position;
+    let left = 100 / event.position;
     return {
       'top': `${eventTop}px`,
       'height': `${eventHeight}px`,
+      'width' : `${width}%`,
+      'left' : `${left}%`,
       'background-color' : `${event.color}`
     };
   }

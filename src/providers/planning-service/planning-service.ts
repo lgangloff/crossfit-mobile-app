@@ -28,12 +28,17 @@ export class PlanningServiceProvider {
     }).map(eventsources=>{
       eventsources.forEach(eventsource=>{
         eventsource.events.forEach((event:any)=>{
-          event.start = new Date(event.start);
-          event.end = new Date(event.end);
+          event.start = this.toUTCDate(new Date(event.start));
+          event.end = this.toUTCDate(new Date(event.end));
         })
       })
       return eventsources;
     });
   }
 
+
+	toUTCDate(d){
+		return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 
+				d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds());
+	}
 }

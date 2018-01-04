@@ -116,8 +116,6 @@ a {
 		-webkit-overflow-scrolling: touch;
 
         @include clearfix;
-        // 19 is the number of list items in the .timeline
-        height: $row-height*19;
         /* reset style */
         display: block;
         overflow: visible;
@@ -175,7 +173,7 @@ a {
 }
 
 .cd-schedule .event-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .cd-schedule .event-date {
